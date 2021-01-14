@@ -1,0 +1,36 @@
+;Student:Carlton Brown
+;Class:CSC3210
+;Assignment#:5
+;Description:this code finds the minimum value of an array using a while loop
+.386
+.model flat,stdcall
+.stack 4096
+ExitProcess proto,dwExitCode:dword
+.data
+Array DWORD 11,15-3,-4,0,60,11,-1,18
+
+sum DWORD 0
+min DWORD Array[0]
+arraySize DWORD  ($ - Array) / TYPE Array ; using TYPE Array instead of 4 to make code flexible
+.code
+main proc
+
+	mov eax,0
+	mov edx,min
+	mov esi,0 ;index
+	mov ecx,arraySize 
+L1: cmp esi,ecx 
+	jl L2 ;while  index < arraysize continue loop
+	jmp next ; if it index >= arraySize end while loop
+L2: cmp Array[esi*TYPE Array],edx ;if array[index] < current min jump to label to make new min
+	jl L3 
+	jmp L4 ; if the array[index] is not smaller than min inc index and start loop again
+L3: mov edx,Array[esi*TYPE Array] ; mov array[index] into min becuase it was smaller than previous min
+	mov min,edx
+L4: inc esi ;inc index
+	jmp L1
+next:
+	
+	invoke ExitProcess,0
+main endp
+end main
