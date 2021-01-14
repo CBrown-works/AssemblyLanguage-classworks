@@ -1,0 +1,41 @@
+;Student:Carlton Brown
+;Class:CSC3210
+;Assignment#:5
+;Description:this program is a while loop that decremnts value X by 2 or 1 based on certain conditions
+.386
+.model flat,stdcall
+.stack 4096
+ExitProcess proto,dwExitCode:dword
+.data
+X WORD 11
+A WORD 9
+B WORD 8
+.code
+main proc
+	mov cx, 3
+	mov dx,0
+	mov ax,A
+	mov bx,B
+	start:
+	cmp X,dx ; 
+	jbe exit ; x>0? if x <=0 exit while loop
+	cmp X,cx 
+	je exit ;x!=3? if x =3 exit while loop
+	cmp X,ax
+	ja minus2 ;if X>A jump to X=X-2
+	cmp X,bx
+	jb minus2 ;or IF X<B jump to X=X-2
+	jmp minus1 ; this represents ELSE so if X !=3 but X!>A AND X!<B it will jump to the else case so X=X-1
+	
+	minus2: 
+	sub x,2 ;X=X-2
+	jmp start
+	minus1:
+	dec X ;X=X-1
+	jmp start
+	exit:
+	
+
+	invoke ExitProcess,0
+main endp
+end main
